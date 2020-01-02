@@ -27,4 +27,8 @@ export const FormContainer = styled.form`
     button{
         margin-top:30px;
     }
+    
+    input{
+        margin-bottom:15px;
+    }
 `

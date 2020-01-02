@@ -28,5 +28,10 @@ export const MenuItemContainer = styled.div`
                 font-size:15px;
                 color:white;
                 margin-left:30px;
+                cursor: pointer;
+
+                &:hover{
+                    text-decoration:underline;
+                }
             }
 `
