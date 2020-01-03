@@ -1,9 +1,9 @@
 import React from 'react'
 import {GroupContainer, FormInputContainer, FormInputLabelContainer} from './form-input.styles'
 
-const FormInput = ({ handleChange, label, ...otherProps }) => (
+const FormInput = ({ handleChange, label,handleCalander, ...otherProps }) => (
     <GroupContainer>
-        <FormInputContainer onChange={handleChange} {...otherProps} />
+        <FormInputContainer onFocus={handleCalander} onChange={handleChange} {...otherProps} />
         {
             label ?
                 (

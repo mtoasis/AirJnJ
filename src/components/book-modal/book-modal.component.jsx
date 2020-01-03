@@ -2,15 +2,22 @@ import React, { useState } from 'react'
 import { BookModalContainer, ModalContainer, TitleTextContainer, FormContainer } from './book-modal.styles'
 import FormInput from '../form-input/form-input.component'
 import CustomButton from '../custom-button/custom-button.component'
+// import AutoCompleteInput from '../auto-complete-input/auto-complete-input.component'
+// import Calendar from 'react-calendar'
+import CustomCalendar from '../calendar/calendar.component'
+
 
 const BookModal = () => {
+
+    let todayDate = new Date()
+    todayDate = JSON.stringify(todayDate).slice(1, 11);
 
     const [bookingInfo, setBookingInfo] = useState(
         {
             where: ``,
-            checkIn: ``,
+            checkIn: todayDate,
             checkOut: ``,
-            guests: ``,
+            guests: `1`,
         })
 
     const { where, checkIn, checkOut, guests } = bookingInfo;
@@ -18,6 +25,13 @@ const BookModal = () => {
     const handleChange = (event) => {
         const { value, name } = event.target;
         setBookingInfo({ ...bookingInfo, [name]: value })
+    }
+
+    const handleValidation = () =>{
+        if(new Date(checkIn) < new Date(checkOut)){
+            return
+        }
+        return alert("Check-out date can't be prior to check-in date")
     }
 
     return (
@@ -28,6 +42,13 @@ const BookModal = () => {
                 </TitleTextContainer>
 
                 <FormContainer>
+
+                    {/* <AutoCompleteInput
+                    name="where" 
+                    value={where}
+                    handleChange={handleChange}
+                    /> */}
+
                     <FormInput
                         name="where"
                         value={where}
@@ -36,20 +57,20 @@ const BookModal = () => {
                         required
                     />
 
-                    <FormInput
+                    <CustomCalendar
                         name="checkIn"
-                        value={checkIn}
                         label="CHECK-IN"
-                        handleChange={handleChange}
-                        required
+                        value={checkIn}
+                        bookingInfo={bookingInfo}
+                        setBookingInfo={setBookingInfo}                      
                     />
 
-                    <FormInput
+                    <CustomCalendar
                         name="checkOut"
-                        value={checkOut}
                         label="CHECK-OUT"
-                        handleChange={handleChange}
-                        required
+                        value={checkOut}
+                        bookingInfo={bookingInfo}
+                        setBookingInfo={setBookingInfo}                  
                     />
 
                     <FormInput
@@ -57,12 +78,16 @@ const BookModal = () => {
                         value={guests}
                         label="GUESTS"
                         handleChange={handleChange}
+                        type="number"
+                        min="1"                        
                         required
                     />
-                    <CustomButton>Search</CustomButton>
+                    <CustomButton type="submit" onClick={handleValidation}>Search</CustomButton>
                 </FormContainer>
 
             </ModalContainer>
+
+
         </BookModalContainer>
     )
 }
