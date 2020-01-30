@@ -42,6 +42,7 @@ const getButtonStyles = props => {
 }
 
 
+
 export const CustomButtonContainer = styled.button`
     min-width: 165px;
     width: auto;
@@ -56,5 +57,7 @@ export const CustomButtonContainer = styled.button`
     cursor: pointer;
     display:flex;
     justify-content: center;
-    ${getButtonStyles}
+    ${getButtonStyles};
+    border-radius:${({round}) => round? `5px`: `null`};
+    border-width:0;
 `
